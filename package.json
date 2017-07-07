@@ -9,7 +9,7 @@
     "mousetrap": "^1.6.1",
     "react": "^15.5.4",
     "react-ace": "^5.0.1",
-    "react-dom": "^15.5.4",
+    "react-dom": "^15.5.4"
   },
   "scripts": {
     "start": "react-scripts start",

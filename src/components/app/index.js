@@ -7,7 +7,7 @@ import 'brace/mode/javascript';
 import 'brace/mode/json';
 import 'brace/theme/solarized_dark';
 
-import './App.css';
+import './index.css';
 
 class App extends Component {
   constructor() {
@@ -58,39 +58,39 @@ class App extends Component {
     }
 
     return (
-      <div className="App" ref={this.onAppRef}>
-        <div className={`App__sidebar ${this.state.showSidebar ? '' : 'App__sidebar--collapsed' }`}>
-          <div className="App__sidebar__title" onClick={this.toggleSidebar}>
+      <div className="app" ref={this.onAppRef}>
+        <div className={`app__sidebar ${this.state.showSidebar ? '' : 'app__sidebar--collapsed' }`}>
+          <div className="app__sidebar__title" onClick={this.toggleSidebar}>
             ARTHUR
-            <div className="App__sidebar__close-button">
+            <div className="app__sidebar__close-button">
               ‹
             </div>
           </div>
         </div>
 
-        <div className="App__pane-container">
-          <div className="App__pane App__pane--code">
+        <div className="app__pane-container">
+          <div className="app__pane app__pane--code">
             <AceEditor
               { ...editorOptions }
               mode="javascript"
               onChange={this.updateCode}
-              name="App__pane__code-1"
+              name="app__pane__code-1"
               value={this.state.code}
             />
 
-            <div className="App__pane__run-button" onClick={this.runCode}>
+            <div className="app__pane__run-button" onClick={this.runCode}>
               ►
             </div>
           </div>
 
-          <div className="App__pane-divider" />
+          <div className="app__pane-divider" />
 
-          <div className="App__pane App__pane--results">
+          <div className="app__pane app__pane--results">
             <AceEditor
               { ...editorOptions }
               mode="json"
               readOnly={true}
-              name="App__pane__code-2"
+              name="app__pane__code-2"
               value={this.state.result}
             />
           </div>
