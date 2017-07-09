@@ -3,6 +3,8 @@ import brace from 'brace';
 import AceEditor from 'react-ace';
 import Mousetrap from 'mousetrap';
 
+import { Icon } from 'react-mdl';
+
 import 'brace/mode/javascript';
 import 'brace/mode/json';
 import 'brace/theme/solarized_dark';
@@ -38,6 +40,14 @@ class App extends Component {
     this.setState({ showSidebar: !this.state.showSidebar });
   }
 
+  toggleStats = () => {
+    this.setState({
+      showSidebar: false,
+    });
+
+    // TODO: Route to stats here
+  }
+
   onAppRef = el => {
     const mousetrap = new Mousetrap(el);
     mousetrap.bind('ctrl+enter', this.runCode);
@@ -65,6 +75,10 @@ class App extends Component {
             <div className="app__sidebar__close-button">
               ‹
             </div>
+          </div>
+
+          <div className="app__sidebar__menu__option app__sidebar__animated" onClick={this.toggleStats}>
+            <Icon name="assessment" /> Stats
           </div>
         </div>
 
