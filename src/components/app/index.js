@@ -15,6 +15,7 @@ import Sidebar from './sidebar';
 
 import './index.css';
 
+import Editor from './editor';
 import Stats from './stats';
 
 class App extends Component {
@@ -47,52 +48,13 @@ class App extends Component {
   }
 
   render() {
-    const editorOptions = {
-      height: '100%',
-      width: '100%',
-      theme: 'solarized_dark',
-      highlightActiveLine: false,
-      showPrintMargin: false,
-      fontSize: '16px',
-      tabSize: 2,
-      editorProps: {
-        $blockScrolling: true
-      }
-    }
-
     return (
       <div className="app" ref={this.onAppRef}>
         <Sidebar />
 
-        <Route exact path="/stats" component={Stats}/>
+        <Route exact path="/" component={Editor} />
+        <Route exact path="/stats" component={Stats} />
 
-        <div className="app__pane-container">
-          <div className="app__pane app__pane--code">
-            <AceEditor
-              { ...editorOptions }
-              mode="javascript"
-              onChange={this.updateCode}
-              name="app__pane__code-1"
-              value={this.state.code}
-            />
-
-            <div className="app__pane__run-button" onClick={this.runCode}>
-              ►
-            </div>
-          </div>
-
-          <div className="app__pane-divider" />
-
-          <div className="app__pane app__pane--results">
-            <AceEditor
-              { ...editorOptions }
-              mode="json"
-              readOnly={true}
-              name="app__pane__code-2"
-              value={this.state.result}
-            />
-          </div>
-        </div>
       </div>
     );
   }
