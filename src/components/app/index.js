@@ -5,6 +5,8 @@ import Mousetrap from 'mousetrap';
 
 import { Icon } from 'react-mdl';
 
+import { Route } from 'react-router-dom'
+
 import 'brace/mode/javascript';
 import 'brace/mode/json';
 import 'brace/theme/solarized_dark';
@@ -12,6 +14,8 @@ import 'brace/theme/solarized_dark';
 import Sidebar from './sidebar';
 
 import './index.css';
+
+import Stats from './stats';
 
 class App extends Component {
   constructor() {
@@ -59,6 +63,8 @@ class App extends Component {
     return (
       <div className="app" ref={this.onAppRef}>
         <Sidebar />
+
+        <Route exact path="/stats" component={Stats}/>
 
         <div className="app__pane-container">
           <div className="app__pane app__pane--code">

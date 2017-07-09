@@ -5,10 +5,9 @@ import { Icon } from 'react-mdl';
 
 import { Link } from 'react-router-dom'
 
-
 import './sidebar.css';
 
-class Sidebar extends Component {
+class Stats extends Component {
   constructor() {
     super();
     this.state = {
@@ -38,12 +37,12 @@ class Sidebar extends Component {
           </div>
         </div>
 
-        <Link to="/stats" className="app__sidebar__menu__option app__sidebar__animated">
-          <Icon name="assessment" />Stats
-        </Link>
+        <div className="app__sidebar__menu__option app__sidebar__animated" onClick={this.toggleStats}>
+          <Icon name="assessment" /><li><Link to="/about">Stats</Link></li>
+        </div>
       </div>
     );
   }
 };
 
-export default Sidebar;
+export default Stats;
