@@ -9,6 +9,8 @@ import 'brace/mode/javascript';
 import 'brace/mode/json';
 import 'brace/theme/solarized_dark';
 
+import Sidebar from './sidebar';
+
 import './index.css';
 
 class App extends Component {
@@ -17,7 +19,6 @@ class App extends Component {
     this.state = {
       code: localStorage.code || 'g.Vertex().Limit(1).All();',
       result: '',
-      showSidebar: true,
       cayleyURL: 'http://staging-fbf-cayley.herokuapp.com'
     };
   }
@@ -34,18 +35,6 @@ class App extends Component {
     }).then(response => response.json()).then(result => {
       this.setState({ result: JSON.stringify(result, null, 2) });
     });
-  }
-
-  toggleSidebar = () => {
-    this.setState({ showSidebar: !this.state.showSidebar });
-  }
-
-  toggleStats = () => {
-    this.setState({
-      showSidebar: false,
-    });
-
-    // TODO: Route to stats here
   }
 
   onAppRef = el => {
@@ -69,18 +58,7 @@ class App extends Component {
 
     return (
       <div className="app" ref={this.onAppRef}>
-        <div className={`app__sidebar ${this.state.showSidebar ? '' : 'app__sidebar--collapsed' }`}>
-          <div className="app__sidebar__title" onClick={this.toggleSidebar}>
-            ARTHUR
-            <div className="app__sidebar__close-button">
-              ‹
-            </div>
-          </div>
-
-          <div className="app__sidebar__menu__option app__sidebar__animated" onClick={this.toggleStats}>
-            <Icon name="assessment" /> Stats
-          </div>
-        </div>
+        <Sidebar />
 
         <div className="app__pane-container">
           <div className="app__pane app__pane--code">

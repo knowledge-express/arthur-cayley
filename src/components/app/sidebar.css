@@ -1,0 +1,107 @@
+.app__sidebar {
+  width: 200px;
+  transition: width ease .3s;
+  box-shadow: -5px 0px 20px rgba(0, 0, 0, .3);
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  /*padding: 16px;*/
+  color: white;
+  background-color: #2c3345;
+  box-sizing: border-box;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.app__sidebar--collapsed {
+  width: 64px;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+
+.app__sidebar__title {
+  position: relative;
+  width: 200px;
+  margin: 0;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: #657B83;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 16px;
+  letter-spacing: 2px;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  user-select: none;
+  transition: all ease .3s, background-color ease .2s;
+}
+
+.app__sidebar__title:hover {
+  background-color: #384154;
+}
+
+.app__sidebar--collapsed .app__sidebar__title {
+  width: 64px;
+  padding-left: 22px;
+  font-size: 32px;
+  line-height: 32px;
+  letter-spacing: 18px;
+  background-color: #3f495e;
+}
+
+.app__sidebar--collapsed .app__sidebar__title:hover {
+  background-color: #444f66;
+}
+
+.app__sidebar__animated {
+  position: relative;
+  width: 200px;
+  margin: 0;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: #657B83;
+  font-size: 22px;
+  font-weight: normal;
+  line-height: 16px;
+  letter-spacing: 2px;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  user-select: none;
+  transition: all ease .3s, background-color ease .2s;
+}
+
+.app__sidebar__animated:hover {
+  background-color: #384154;
+}
+
+.app__sidebar--collapsed .app__sidebar__animated {
+  /*width: 64px;*/
+  /*padding-left: 22px;*/
+  /*font-size: 38px !important;*/
+  line-height: 32px;
+  letter-spacing: 5px !important;
+  background-color: #3f495e;
+}
+
+.app__sidebar--collapsed .app__sidebar__animated .material-icons {
+  font-size: 38px !important;
+}
+
+.app__sidebar--collapsed .app__sidebar__animated:hover {
+  background-color: #444f66;
+}
+
+
+.app__sidebar__close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  opacity: 1;
+  transition: opacity ease .3s;
+}
+
+.app__sidebar--collapsed .app__sidebar__close-button {
+  opacity: 0;
+}
