@@ -38,8 +38,16 @@ class Sidebar extends Component {
           </div>
         </div>
 
-        <Link to="/stats" className="app__sidebar__menu__option app__sidebar__animated">
-          <Icon name="assessment" />Stats
+        <Link to="/" className="app__sidebar__item">
+          <Icon name="code" />Query
+        </Link>
+
+        <Link to="/explore" className="app__sidebar__item">
+          <Icon name="list" />Explore
+        </Link>
+
+        <Link to="/stats" className="app__sidebar__item">
+          <Icon name="assessment" />Statistics
         </Link>
       </div>
     );

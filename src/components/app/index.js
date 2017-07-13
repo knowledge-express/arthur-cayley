@@ -16,6 +16,7 @@ import Sidebar from './sidebar';
 import './index.css';
 
 import Editor from './editor';
+import Explore from './explore';
 import Stats from './stats';
 
 class App extends Component {
@@ -53,6 +54,7 @@ class App extends Component {
         <Sidebar />
 
         <Route exact path="/" component={Editor} />
+        <Route exact path="/explore" component={Explore} />
         <Route exact path="/stats" component={Stats} />
 
       </div>

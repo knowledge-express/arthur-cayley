@@ -29,17 +29,8 @@ class Stats extends Component {
 
   render() {
     return (
-      <div className={`app__sidebar ${this.state.expanded ? '' : 'app__sidebar--collapsed' }`}>
-        <div className="app__sidebar__title" onClick={this.toggle}>
-          ARTHUR
-          <div className="app__sidebar__close-button">
-            ‹
-          </div>
-        </div>
+      <div>
 
-        <div className="app__sidebar__menu__option app__sidebar__animated" onClick={this.toggleStats}>
-          <Icon name="assessment" /><li><Link to="/about">Stats</Link></li>
-        </div>
       </div>
     );
   }

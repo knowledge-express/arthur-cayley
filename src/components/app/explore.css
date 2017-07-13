@@ -1,0 +1,14 @@
+.explore__quad-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.explore__quad-table tr {
+  border: solid rgba(147, 161, 161, .2);
+  border-width: 1px 0;
+}
+
+.explore__quad-table td, .explore__quad-table th {
+  text-align: left;
+  padding: 8px;
+}
