@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Observable } from 'rxjs';
 import debounceFn from 'debounce-fn';
+import henry from 'henry-cayley';
 import { Layer, Rect, Stage, Group, Line, Circle } from 'react-konva';
 import stringToColor from 'string-to-color';
 import './explore.css';
@@ -31,34 +32,37 @@ class Explore extends Component {
   getQuads = async () => {
     const { cayleyURL, limit, object, predicate, subject } = this.state;
 
-    const response = await fetch(`${cayleyURL}/gephi/gs?mode=raw&limit=${limit}${object ? `&obj=${encodeURIComponent(object)}` : ''}${subject ? `&sub=${encodeURIComponent(subject)}` : ''}${predicate ? `&pred=${encodeURIComponent(predicate)}` : ''}`);
-    const observable = new Observable(observer => {
-      const reader = response.body.getReader();
+    // const response = await fetch(`${cayleyURL}/gephi/gs?mode=raw&limit=${limit}${object ? `&obj=${encodeURIComponent(object)}` : ''}${subject ? `&sub=${encodeURIComponent(subject)}` : ''}${predicate ? `&pred=${encodeURIComponent(predicate)}` : ''}`);
+    // const observable = new Observable(observer => {
+    //   const reader = response.body.getReader();
+    //
+    //   const read = async reader => {
+    //     const result = await reader.read();
+    //     if (result.done) return observer.complete();
+    //     observer.next(result.value);
+    //     return read(reader);
+    //   };
+    //
+    //   read(reader);
+    // });
+    //
+    // const decoder = new TextDecoder('utf-8');
 
-      const read = async reader => {
-        const result = await reader.read();
-        if (result.done) return observer.complete();
-        observer.next(result.value);
-        return read(reader);
-      };
+    const stream = henry({ host: cayleyURL }).gephi({ limit, object, predicate, subject });
 
-      read(reader);
-    });
-
-    const decoder = new TextDecoder('utf-8');
-
-    observable
-      .map(uint8array => decoder.decode(uint8array))
-      .flatMap(string => string.split('\n'))
-      .scan(({ result, stack }, value) => {
-        try {
-          return { result: JSON.parse(stack + value), stack: '' };
-        } catch (error) {
-          return { result: null, stack: stack + value };
-        }
-      }, { result: null, stack: '' })
-      .map(({ result }) => result)
-      .filter(result => !!result)
+    // observable
+    //   .map(uint8array => decoder.decode(uint8array))
+    //   .flatMap(string => string.split('\n'))
+    //   .scan(({ result, stack }, value) => {
+    //     try {
+    //       return { result: JSON.parse(stack + value), stack: '' };
+    //     } catch (error) {
+    //       return { result: null, stack: stack + value };
+    //     }
+    //   }, { result: null, stack: '' })
+    //   .map(({ result }) => result)
+    //   .filter(result => !!result)
+    stream
       .bufferTime(1000)
       .scan(({ nodes, edges }, entries) => {
         return entries.reduce(({ nodes, edges}, { ae, an, ce, cn, de, dn }) => {
