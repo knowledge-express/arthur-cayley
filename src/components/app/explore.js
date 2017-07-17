@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import { Observable } from 'rxjs';
 import debounceFn from 'debounce-fn';
-
+import { Layer, Rect, Stage, Group, Line, Circle } from 'react-konva';
+import stringToColor from 'string-to-color';
 import './explore.css';
+
+const X_OFFSET = 500;
+const Y_OFFSET = 500;
+const SIZE_SCALE = .1;
+
+const isIri = maybeIri => /^<.*>$/.test(maybeIri);
+
+console.log(isIri(`Druggability is a term used in drug discovery to describe a biological target (such as a protein) that is known to or is predicted to bind with high affinity to a drug. Furthermore, by definition, the binding of the drug to a druggable target must alter the function of the target with a therapeutic benefit to the patient. The concept of druggability is most often restricted to small molecules (low molecular weight organic substances) but also has been extended to include biologic medical products such as therapeutic monoclonal antibodies.`))
 
 class Explore extends Component {
   constructor() {
@@ -10,7 +19,7 @@ class Explore extends Component {
     this.state = {
       code: localStorage.code || 'g.Vertex().Limit(1).All();',
       result: '',
-      cayleyURL: 'http://localhost:64210',
+      cayleyURL: 'http://feedbackfruits-knowledge-graph.herokuapp.com',
       limit: 1000,
       nodes: [],
       edges: []
@@ -102,16 +111,45 @@ class Explore extends Component {
             </thead>
             <tbody>
               {Object.entries(edges).map(([key, edge]) => {
+                const source = nodes[edge.source];
+                const target = nodes[edge.target];
+
                 return (
                   <tr key={key}>
-                    <td>{nodes[edge.source].label}</td>
-                    <td>{edge.label}</td>
-                    <td>{nodes[edge.target].label}</td>
+                    <td className={`explore__quad-table__cell ${isIri(source.label) ? 'explore__quad-table__cell--iri' : ''}`}>{source.label}</td>
+                    <td className={`explore__quad-table__cell ${isIri(edge.label) ? 'explore__quad-table__cell--iri' : ''}`}>{edge.label}</td>
+                    <td className={`explore__quad-table__cell ${isIri(target.label) ? 'explore__quad-table__cell--iri' : ''}`}>{target.label}</td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
+        </div>
+        <div className="app__pane">
+        <Stage width={window.innerWidth} height={window.innerHeight} pixelRatio={15}>
+          <Layer>
+            {Object.entries(this.state.nodes).map(([key, node]) => {
+              return <Circle
+                key={key}
+                x={node.x + X_OFFSET} y={node.y + Y_OFFSET} radius={node.size * SIZE_SCALE}
+                fill={`#${stringToColor.generate(node.label)}`}
+              />
+            })}
+
+            {Object.entries(this.state.edges).map(([key, edge]) => {
+              const source = this.state.nodes[edge.source];
+              const target = this.state.nodes[edge.target];
+              const points = [source.x + X_OFFSET, source.y + Y_OFFSET, target.x + X_OFFSET, target.y + Y_OFFSET];
+              console.log(edge, points);
+              return <Line
+                key={key}
+                points={points}
+                stroke={`#${stringToColor.generate(edge.pred)}`}
+                strokeWidth="1"
+              />
+            })}
+          </Layer>
+        </Stage>
         </div>
       </div>
     );

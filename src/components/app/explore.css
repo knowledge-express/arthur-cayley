@@ -1,6 +1,8 @@
 .explore__quad-table {
   width: 100%;
   border-collapse: collapse;
+  /*table-layout: fixed;*/
+
 }
 
 .explore__quad-table tr {
@@ -11,4 +13,35 @@
 .explore__quad-table td, .explore__quad-table th {
   text-align: left;
   padding: 8px;
+}
+
+.explore__quad-table thead {
+  /*position: absolute;*/
+}
+
+.explore__quad-table thead tr {
+  /*display: block;*/
+  /*position: relative;*/
+}
+
+.explore__quad-table th input {
+  border: none;
+  background: rgba(255, 255, 255, .0);
+  border-bottom: 1px solid rgba(255, 255,255, .3);
+  width: 100%;
+  outline: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+.explore__quad-table tbody {
+  /*display: block;*/
+  /*height: 400px;*/
+  /*overflow: auto;*/
+  /*width: 100%;*/
+}
+
+
+.explore__quad-table__cell--iri {
+    font-family: monospace;
 }
